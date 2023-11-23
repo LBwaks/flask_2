@@ -11,13 +11,19 @@ def create_app(test_config=None):
         DATABASE=os.path.join(app.instance_path, "hw13.db"),
     )
     import db
+    import class_app
     import auth
+
+    # import class_app
 
     # initialize the db
     db.init_app(app)
 
     # blueprint for auth
     app.register_blueprint(auth.bp)
+
+    # class blueprint
+    app.register_blueprint(class_app.bp)
     app.add_url_rule("/", endpoint="dashboard")
 
     if test_config is None:

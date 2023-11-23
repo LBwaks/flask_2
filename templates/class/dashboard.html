@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row mt-3 pt-2">
+    <div class="d-flex flex-row-reverse">
+      {% if g.user %}
+    {# <a class="btn btn-lg btn-info" href="{{ url_for('todoapp.create') }}">New Todo</a> #}
+  {% endif %}
+    </div>
+  </div>
+  <div class="row"
+    <div class="col-md-8">
+      <div class="border border-secondary pt-2 mt-2">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      
+      <th scope="col">Status</th>
+      <th scope="col">Task</th>
+      <th scope="col">Action</th>
+
+      
+    </tr>
+  </thead>
+  <tbody>
+  {% for student in students %}
+    <tr>
+      
+      <td>
+       {# {% if student['complete'] %}
+        <form method="post" action="{{ url_for('todoapp.incomplete', id=student.id) }}">
+                <button class="btn" type="submit"><i class="bi bi-check-square "></i></button>
+            </form>
+               
+        {% endif %}
+        {% if not student['complete'] %}
+            <form method="post" action="{{ url_for('todoapp.complete', id=student.id) }}">
+                <button class="btn " type="submit"><i class="bi bi-square"></i></button>
+            </form>
+        {% endif %}
+        #}
+      </td>
+      
+      <td>{{ student['title'] }}</td>
+      <td>
+   {#    
+{% if g.user['id'] == student['user_id'] %}
+ <div class="d-flex flex-row justify-content-around">
+  <div>
+<a class="btn btn-sm btn-primary" href="{{ url_for('todoapp.update', id=student['id']) }}">Edit</a>
+  </div>
+  <div>
+ <form action="{{ url_for('todoapp.delete', id=student['id']) }}" method="post">
+    <input class="btn btn-sm btn-danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  </form>
+  </div>
+          
+         
+   </div>
+        {% endif %}
+       #}
+        </td>
+     
+    </tr>
+        
+        
+      
+      
+    
+    {% if not loop.last %}
+      
+    {% endif %}
+  {% endfor %}
+  </tbody>
+</table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
