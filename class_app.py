@@ -19,8 +19,8 @@ def index():
     #     " ORDER BY created ASC",
     #     (user_id,),
     # ).fetchall()
-    students = db.execute("SELECT * FROM Students")
-    quizes = db.execute("SELECT * FROM Quizes ")
+    students = db.execute("SELECT * FROM Students").fetchall()
+    quizes = db.execute("SELECT * FROM Quizes ").fetchall()
     return render_template(
         "class/dashboard.html",
         students=students,
@@ -29,9 +29,9 @@ def index():
 
 
 # create pb
-@bp.route("/create", methods=("GET", "POST"))
+@bp.route("/student/add", methods=("GET", "POST"))
 @login_required
-def create():
+def create_students():
     if request.method == "POST":
         firstname = request.form["firstname"]
         lastname = request.form["lastname"]
@@ -48,13 +48,44 @@ def create():
         else:
             db = get_db()
             db.execute(
-                "INSERT INTO todo (firstname,  lastname)" " VALUES (?,  ?)",
+                "INSERT INTO Students (firstname,  lastname)" " VALUES (?,  ?)",
                 (firstname, lastname),
             )
             db.commit()
             return redirect(url_for("class_app.index"))
 
-    return render_template("class/create.html")
+    return render_template("class/create_students.html")
+
+
+# create pb
+@bp.route("/quiz/add", methods=("GET", "POST"))
+@login_required
+def create_quizes():
+    if request.method == "POST":
+        title = request.form["title"]
+        questions = request.form["questions"]
+        date = request.form["date_given"]
+        error = None
+
+        if not title:
+            error = "title is required."
+        if not questions:
+            error = "questions is required."
+        if not date:
+            error = "Date is required"
+
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                "INSERT INTO Quizes (title,  questions,date_given)" " VALUES (?, ?, ?)",
+                (title, questions, date),
+            )
+            db.commit()
+            return redirect(url_for("class_app.index"))
+
+    return render_template("class/create_quizes.html")
 
 
 # # getting a single list

@@ -22,7 +22,8 @@ CREATE TABLE Quizes(
     -- user_id INTEGER NOT NULL,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     title TEXT NOT NULL,
-    questions TEXT NOT NULL
+    questions TEXT NOT NULL,
+    date_given DATE NOT NULL
     -- complete BOOLEAN NOT NULL DEFAULT FALSE,
 
     -- FOREIGN KEY (user_id) REFERENCES user (id)
