@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 mx-auto">
+      <h1>Update student</h1>
+<form method="post">
+  <div class="mb-3 row">
+    <label for="firstname" class="form-label">Firstname</label>
+    <input name="firstname" class="form-control" id="firstname" value="{{ request.form['firstname'] or student['firstname'] }}" required>
+  </div>
+  <div class="mb-3 row">
+    <label for="lastname" class="form-label">Lastname</label>
+    <input name="lastname" class="form-control" id="lastname" value="{{ request.form['lastname'] or student['lastname']}}" required>
+  </div>
+      <div class="mb-3 row pt-3">
+        
+    <input class="btn btn-sm btn-primary" type="submit" value="Save">
+      </div>
+  </form>
+    </div>
+  </div>
+</div>
+  
+{% endblock %}

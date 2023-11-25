@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 mx-auto">
+      <h1>Update Quiz</h1>
+      <form method="post">
+        <div class="mb-3 row">
+          <label for="title" class="form-label">Title</label>
+          <input name="title" class="form-control" id="title" value="{{ request.form['title'] or quiz['title'] }}" required>
+        </div>
+        <div class="mb-3 row">
+          <label for="questions" class="form-label">Questions</label>
+          <textarea class="form-control" name="questions" id="questions" rows="3" required>{{ request.form['questions'] or quiz['questions'] }}</textarea>
+        </div>
+        <div class="mb-3 row">
+          <label for="date_given" class="form-label">Date Given</label>
+          <input type="date" name="date_given" class="form-control" id="date_given" value="{{ request.form['date_given'] or quiz['date_given'] }}" required>
+        </div>
+        <div class="mb-3 row pt-3">
+          <input class="btn btn-sm btn-primary" type="submit" value="Save">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -19,6 +19,8 @@
       <th scope="col">ID</th>
       <th scope="col">FirstName</th>
       <th scope="col">LastName</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
 
       
     </tr>
@@ -30,6 +32,10 @@
       <td>{{ student['id'] }}</td>      
       <td>{{ student['firstname'] }}</td>
       <td> {{ student['lastname'] }}</td>
+      <td> <a href="{{ url_for('class_app.view_student_results', id=student['id']) }}" class="btn btn-sm btn-info">View</a></td>
+      <td> 
+        <a class="btn btn-sm btn-primary" href="{{ url_for('class_app.update', id=student['id']) }}">Edit</a>
+    </td>
      
     </tr>
         
@@ -44,25 +50,32 @@
   </tbody>
 </table>
       </div>
+      <hr><hr>
   <div class="border border-secondary pt-2 mt-2">
 <table class="table table-striped">
   <thead>
     <tr>
       
       <th scope="col">ID</th>
-      <th scope="col">FirstName</th>
-      <th scope="col">LastName</th>
+      <th scope="col">Subjects</th>
+      <th scope="col">Number Of Questions</th>
+      <th scope="col">Date</th>
+      <th scope="col"></th>
 
       
     </tr>
   </thead>
   <tbody>
-  {% for student in students %}
+  {% for quiz in quizes %}
     <tr>
       
-      <td>{{ student['id'] }}</td>      
-      <td>{{ student['firstname'] }}</td>
-      <td> {{ student['lastname'] }}</td>
+      <td>{{ quiz['id'] }}</td>      
+      <td>{{ quiz['title'] }}</td>
+      <td> {{ quiz['questions'] }}</td>
+      <td> {{ quiz['date_given'] }}</td>
+       <td> 
+        <a class="btn btn-sm btn-primary" href="{{ url_for('class_app.update_quiz', id=quiz['id']) }}">Edit</a>
+    </td>
      
     </tr>
         

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 mx-auto">
+      
+ <h1>Add Quiz Result</h1>
+
+    <form method="post">
+        <div class="mb-3 row">
+            <label for="student_id" class="form-label">Select Student</label>
+            <select name="student_id" class="form-control" id="student_id" required>
+                {% for student in students %}
+                    <option value="{{ student.id }}">{{ student.firstname }} {{ student.lastname }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="mb-3 row">
+            <label for="quiz_id" class="form-label">Select Quiz</label>
+            <select name="quiz_id" class="form-control" id="quiz_id" required>
+                {% for quiz in quizes %}
+                    <option value="{{ quiz.id }}">{{ quiz.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="score" class="form-label">Enter Score</label>
+            <input type="number" name="score" class="form-control" id="score" required>
+        </div>
+        
+
+        <div class="mb-3 row pt-3">
+            <input class="btn btn-sm btn-primary" type="submit" value="Save">
+        </div>
+    </form>
+    </div>
+  </div>
+</div>
+  
+{% endblock %}
