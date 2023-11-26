@@ -8,7 +8,7 @@ bp = Blueprint("class_app", __name__)
 
 
 # index bp
-@bp.route("/")
+@bp.route("/dashboard")
 def index():
     db = get_db()
     # user_id = g.user["id"]
@@ -171,7 +171,7 @@ def get_student(id, check_author=True):
 
 
 # update bp
-@bp.route("/<int:id>/update", methods=("GET", "POST"))
+@bp.route("/student/<int:id>/update", methods=("GET", "POST"))
 @login_required
 def update(id):
     student = get_student(id)
@@ -197,6 +197,17 @@ def update(id):
             return redirect(url_for("class_app.index"))
 
     return render_template("class/update_students.html", student=student)
+
+
+# delete student
+@bp.route("/student/<int:id>/delete", methods=("POST",))
+@login_required
+def delete_student(id):
+    get_student(id)
+    db = get_db()
+    db.execute("DELETE FROM Students WHERE id = ?", (id,))
+    db.commit()
+    return redirect(url_for("class_app.index"))
 
 
 # get quizes
@@ -245,6 +256,17 @@ def update_quiz(id):
     return render_template("class/update_quiz.html", quiz=quiz)
 
 
+# delete quiz
+@bp.route("/quiz/<int:id>/delete", methods=("POST",))
+@login_required
+def delete_quiz(id):
+    get_quiz(id)
+    db = get_db()
+    db.execute("DELETE FROM Quizes WHERE id = ?", (id,))
+    db.commit()
+    return redirect(url_for("class_app.index"))
+
+
 # get result
 def get_result(id, check_author=True):
     result = (
@@ -289,31 +311,11 @@ def update_results(id):
     return render_template("class/update_students_results.html", result=result)
 
 
-# @bp.route("/<int:id>/delete", methods=("POST",))
-# @login_required
-# def delete(id):
-#     get_list(id)
-#     db = get_db()
-#     db.execute("DELETE FROM todo WHERE id = ?", (id,))
-#     db.commit()
-#     return redirect(url_for("todoapp.index"))
-
-
-# @bp.route("/<int:id>/complete", methods=("POST",))
-# @login_required
-# def complete(id):
-#     # list = get_list(id)
-#     db = get_db()
-#     db.execute("UPDATE todo SET complete = TRUE WHERE id = ?", (id,))
-#     db.commit()
-#     return redirect(url_for("todoapp.index"))
-
-
-# @bp.route("/<int:id>/incomplete", methods=("POST",))
-# @login_required
-# def incomplete(id):
-#     # list = get_list(id)
-#     db = get_db()
-#     db.execute("UPDATE todo SET complete = FALSE WHERE id = ?", (id,))
-#     db.commit()
-#     return redirect(url_for("todoapp.index"))
+@bp.route("/results/<int:id>/delete", methods=("POST",))
+@login_required
+def delete_result(id):
+    get_result(id)
+    db = get_db()
+    db.execute("DELETE FROM Results WHERE id = ?", (id,))
+    db.commit()
+    return redirect(url_for("class_app.index"))

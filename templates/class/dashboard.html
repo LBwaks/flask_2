@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <div class="container">
   <div class="row mt-3 pt-2">
     <div class="d-flex flex-row-reverse">
@@ -11,30 +12,44 @@
   </div>
   <div class="row"
     <div class="col-md-8">
-      <div class="border border-secondary pt-2 mt-2">
-<table class="table table-striped">
+      <div class=" p-5 m-4 bg-white">
+        <div class="table-responsive">
+
+<table class="table table-striped table-bordered p-2 caption-top">
+  <h2 class="text-decoration-underline"><caption class="text-center">List of Students</caption></h2>
+   
   <thead>
     <tr>
       
       <th scope="col">ID</th>
+       {% if g.user %}
       <th scope="col">FirstName</th>
       <th scope="col">LastName</th>
+      {% endif %}
+      <th scope="col"></th>
       <th scope="col"></th>
       <th scope="col"></th>
 
       
     </tr>
   </thead>
-  <tbody>
+  <tbody class="table-group-divider">
   {% for student in students %}
     <tr>
       
-      <td>{{ student['id'] }}</td>      
+      <td>{{ student['id'] }}</td>  
+       {% if g.user %}    
       <td>{{ student['firstname'] }}</td>
       <td> {{ student['lastname'] }}</td>
-      <td> <a href="{{ url_for('class_app.view_student_results', id=student['id']) }}" class="btn btn-sm btn-info">View</a></td>
+      {% endif %}
+      <td> <a href="{{ url_for('class_app.view_student_results', id=student['id']) }}" class="text-info">View</a></td>
       <td> 
-        <a class="btn btn-sm btn-primary" href="{{ url_for('class_app.update', id=student['id']) }}">Edit</a>
+        <a class="text-primary" href="{{ url_for('class_app.update', id=student['id']) }}">Edit</a>
+    </td>
+    <td> 
+        <form action="{{ url_for('class_app.delete_student', id=student['id']) }}" method="post">
+    <input class="btn btn-sm btn-danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  </form>
     </td>
      
     </tr>
@@ -49,10 +64,15 @@
   {% endfor %}
   </tbody>
 </table>
+</div>
       </div>
-      <hr><hr>
-  <div class="border border-secondary pt-2 mt-2">
-<table class="table table-striped">
+      <hr>
+
+  <div class=" p-5 m-4 bg-white">
+        <div class="table-responsive">
+
+<table class="table table-striped table-bordered p-2 caption-top">
+  <h2 class="text-decoration-underline"><caption class="text-center">List of Quizes</caption></h2>
   <thead>
     <tr>
       
@@ -61,11 +81,12 @@
       <th scope="col">Number Of Questions</th>
       <th scope="col">Date</th>
       <th scope="col"></th>
+      <th scope="col"></th>
 
       
     </tr>
   </thead>
-  <tbody>
+  <tbody class="table-group-divider">
   {% for quiz in quizes %}
     <tr>
       
@@ -74,8 +95,13 @@
       <td> {{ quiz['questions'] }}</td>
       <td> {{ quiz['date_given'] }}</td>
        <td> 
-        <a class="btn btn-sm btn-primary" href="{{ url_for('class_app.update_quiz', id=quiz['id']) }}">Edit</a>
-    </td>
+        <a class="text-info" href="{{ url_for('class_app.update_quiz', id=quiz['id']) }}">Edit</a>
+      </td>
+      <td>
+        <form action="{{ url_for('class_app.delete_quiz', id=quiz['id']) }}" method="post">
+    <input class="btn btn-sm btn-danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  </form>
+      </td>
      
     </tr>
         
@@ -89,6 +115,7 @@
   {% endfor %}
   </tbody>
 </table>
+</div>
       </div>
     </div>
   </div>

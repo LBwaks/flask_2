@@ -24,7 +24,7 @@ def create_app(test_config=None):
 
     # class blueprint
     app.register_blueprint(class_app.bp)
-    app.add_url_rule("/", endpoint="dashboard")
+    app.add_url_rule("/dashboard", endpoint="dashboard")
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
